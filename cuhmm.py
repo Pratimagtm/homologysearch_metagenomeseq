@@ -15,13 +15,9 @@ def call_hmmer(hmmscan_arg):
     print('---- Start call hmmer, Creating .tab file ----')
     subprocess.call(hmmscan_arg, stdout=open(os.devnull, 'w'))
     print('----Call hmmer Ended----')
-    #read tab file and create a list of TF potein accession.
-    
-    #select_TF(hmmoutputfile, samplelist)
-    
+    #result of hmmer homology search will be saved in output file is created in same location as this python file in 'TAB' format
     
 def run_hmmer(hmminputfile, eval, DB_path):
-   #print(eval, DB_path, hmminputfile)
 
     print('---start run hmmer---')
     hmmscan_arg = (['hmmscan','--tblout', hmmoutputfile, '-E', str(eval), \
@@ -32,32 +28,26 @@ def run_hmmer(hmminputfile, eval, DB_path):
 
 # open and read json file
 inputfilename = "input.json"
-#fastapath= "/reads_trans"
+
 with open('input.json') as json_file:
     data = json.load(json_file)
     
 # create a variable to hold dbPath value for later use.
 eval = data["Hmmer"]["Max_eval"] 
 DB_path = data["Hmmer"]["DB_path"]
-
-#print(eval, DB_path)
-
 readpath = data["Hmmer"]["Reads"]
+
+# checks sequence file already exists
 isfile = os.path.exists(readpath)
 
+# create a list of sequence files
 fastalist=[]
 for f in os.listdir(readpath):
     if f.endswith(".fasta"):
         fastalist.append(f)
-#print(readpath, isfile)
-#print(fastalist)
+
 
 for file in fastalist:
-    print(file)
     hmminputfile = readpath+file
-    hmmoutputfile= file+ ".tab"
+    hmmoutputfile= file+ ".tab" 
     run_hmmer(hmminputfile, eval, DB_path) 
-
-
-
-print(str(hmminputfile))
