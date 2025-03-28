@@ -2,6 +2,7 @@
 #Code for HMMER homology search of metagenomic reads against a HMM of protein of interest
 
 #install hmmer
+
 conda install bioconda::hmmer
 
 Hmmer models used:
