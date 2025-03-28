@@ -1,7 +1,7 @@
 # homologysearch_metagenomeseq
 # Code for HMMER homology search of metagenomic reads against a HMM of protein of interest
 
-# install hmmer
+#install hmmer
 
 conda install bioconda::hmmer
 
